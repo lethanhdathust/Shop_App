@@ -26,14 +26,14 @@ class Orders with ChangeNotifier {
   }
 
   Future<void> fetchAndSetOrders() async {
-    final uri = 'https://first-63323-default-rtdb.firebaseio.com/orders.json?$authToken';
+    final uri = 'https://first-63323-default-rtdb.firebaseio.com/orders.json?auth=$authToken';
     final response = await http.get(Uri.parse(uri));
     final List<OrderItem> loadedOrders = [];
     final extractedData =
-        await json.decode(response.body) as Map<String, dynamic>;
-    // if (extractedData == null) {
-    //   return;
-    // }
+        await json.decode(response.body) ;
+    if (extractedData == null) {
+      return;
+    }
     extractedData.forEach((OrderId, orderData) {
       loadedOrders.add(OrderItem(
         id: OrderId,
@@ -43,7 +43,7 @@ class Orders with ChangeNotifier {
             .map(
               (item) => CartItem(
                 id: item['id'],
-                price: item['price'],
+                price: item['price'] ==0? 0.0 : item['price'].toDouble(),
                 quantity: item['quantity'],
                 title: item['title'],
               ),
@@ -57,7 +57,7 @@ class Orders with ChangeNotifier {
 
 // Future<void>addOrder(List)
   Future<void> addOrder(List<CartItem>? cartProducts, double total) async {
-    final uri = 'https://first-63323-default-rtdb.firebaseio.com/orders.json?$authToken';
+    final uri = 'https://first-63323-default-rtdb.firebaseio.com/orders.json?auth=$authToken';
 
     final timeStamp = DateTime.now();
     final response = await http.post(Uri.parse(uri),

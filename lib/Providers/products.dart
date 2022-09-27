@@ -86,7 +86,7 @@ class Products with ChangeNotifier {
               id: productId,
               title: productData['title'],
               description: productData['description'],
-              price: productData['price'],
+              price: productData['price'] ==null ? 0.0 :productData['price'].toDouble() ,
               imageUrl: productData['imageUrl']));
         },
       );

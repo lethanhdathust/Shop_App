@@ -70,12 +70,10 @@ class _OrdersScreenState extends State<OrdersScreen> {
                     builder: (ctx, orderData, child) => ListView.builder(
                       itemCount: orderData.orders.length,
                       itemBuilder: (ctx, i) {
-                        return OrderItem(
-                          amount: orderData.orders[i].amount ,
-                          dateTime: DateTime.now(),
-                          id: orderData.orders[i].id,
-                          products: orderData.orders[i].products,
-                        ) as Widget;
+                        return OrderItems(
+                          orderData.orders[i] ,
+
+                        ) ;
                       },
                     ),
                   );

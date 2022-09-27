@@ -130,7 +130,7 @@ class _AuthCardState extends State<AuthCard>
   @override
   void dispose() {
     // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
+    super.dispose();
     _controller.dispose();
   }
 
